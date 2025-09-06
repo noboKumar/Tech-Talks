@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const Login = () => {
   return (
-    <div className="space-y-5 border p-10 rounded-md shadow-md max-w-md mx-auto mt-20 bg-white">
+    <div className="space-y-5 border p-10 rounded-md shadow-md max-w-md mx-auto mt-20 bg-card">
       <h1 className="text-4xl font-bold text-primary">Login Now</h1>
       <form className="flex flex-col gap-2">
         <div>

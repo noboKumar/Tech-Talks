@@ -6,7 +6,7 @@ import React from "react";
 
 const Register = () => {
   return (
-    <div className="space-y-5 border p-10 rounded-md shadow-md max-w-md mx-auto mt-20 bg-white">
+    <div className="space-y-5 border p-10 rounded-md shadow-md max-w-md mx-auto mt-20 bg-card">
       <h1 className="text-4xl font-bold text-primary">Register Now</h1>
       <form className="flex flex-col gap-2">
         <div>
@@ -25,7 +25,7 @@ const Register = () => {
           {/* File upload */}
           <Label htmlFor="profile">Profile Picture:</Label>
           <Input
-            className="file:bg-gray-100 file:px-2 file:rounded-xl file:text-sm file:font-medium file:cursor-pointer"
+            className="file:bg-card file:px-2 file:rounded-xl file:text-sm file:font-medium file:cursor-pointer"
             type="file"
             id="profile"
             name="profile"

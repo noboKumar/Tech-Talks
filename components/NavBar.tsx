@@ -2,6 +2,7 @@ import React from "react";
 import Logo from "./Logo";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { ThemeToggler } from "./ThemeToggler";
 
 const NavBar = () => {
   return (
@@ -18,13 +19,14 @@ const NavBar = () => {
           </div>
         </div>
         <div className="md:flex items-center gap-8 hidden">
-          <div>
+          <div className="flex items-center gap-6">
             <ul className="flex gap-4">
               <li>Home</li>
               <li>Forums</li>
               <li>About</li>
               <li>Contact</li>
             </ul>
+            <ThemeToggler />
           </div>
           <div>
             <Link href="/login">

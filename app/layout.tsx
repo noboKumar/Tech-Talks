@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 import { Playfair_Display, Source_Sans_3 } from "next/font/google";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -28,10 +29,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${sourceSans.variable}`}>
+    <html
+      lang="en"
+      className={`${playfair.variable} ${sourceSans.variable} suppressHydrationWarning`}
+    >
       <body className="antialiased">
-        <NavBar />
-        <div className="w-8/12 mx-auto my-5">{children}</div>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          disableTransitionOnChange
+        >
+          <NavBar />
+          <div className="w-8/12 mx-auto my-5">{children}</div>
+        </ThemeProvider>
       </body>
     </html>
   );
