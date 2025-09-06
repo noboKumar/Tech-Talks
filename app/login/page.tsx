@@ -10,7 +10,13 @@ const Login = () => {
         <div>
           {/* email */}
           <Label htmlFor="email">Email:</Label>
-          <Input type="email" id="email" placeholder="Email" name="email" />
+          <Input
+            type="email"
+            id="email"
+            placeholder="Email"
+            name="email"
+            required
+          />
         </div>
 
         <div>
@@ -21,6 +27,7 @@ const Login = () => {
             id="password"
             placeholder="Password"
             name="password"
+            required
           />
         </div>
         <Button type="submit">Login</Button>
