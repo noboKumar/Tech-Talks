@@ -31,7 +31,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${sourceSans.variable} suppressHydrationWarning`}
+      suppressHydrationWarning
+      className={`${playfair.variable} ${sourceSans.variable}`}
     >
       <body className="antialiased">
         <ThemeProvider
