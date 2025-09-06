@@ -1,6 +1,7 @@
 import React from "react";
 import Logo from "./Logo";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
 const NavBar = () => {
   return (
@@ -26,7 +27,9 @@ const NavBar = () => {
             </ul>
           </div>
           <div>
-            <Button>Log In</Button>
+            <Link href="/login">
+              <Button>Log In</Button>
+            </Link>
           </div>
         </div>
       </div>
