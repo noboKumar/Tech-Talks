@@ -1,14 +1,12 @@
-"use client";
-
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { toast } from "sonner";
 import AlertCard from "./ui/AlertCard";
+import { getUserSession } from "@/lib/userSession";
 
-const AuthButton = () => {
-  const { data: session } = useSession();
-  console.log(session);
+const AuthButton = async () => {
+  const user = await getUserSession();
 
   const handleLogout = () => {
     signOut({
@@ -19,10 +17,10 @@ const AuthButton = () => {
 
   return (
     <div>
-      {session ? (
+      {user ? (
         <>
           <div className="flex items-center gap-2">
-            <p>Welcome, {session?.user?.name}!</p>
+            <p>Welcome, {user?.name}!</p>
             <AlertCard
               button={<Button variant="destructive">Log Out</Button>}
               title="Are you sure you want to log out?"
