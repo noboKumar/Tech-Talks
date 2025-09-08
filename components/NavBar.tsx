@@ -1,8 +1,7 @@
 import React from "react";
 import Logo from "./Logo";
-import { Button } from "./ui/button";
-import Link from "next/link";
 import { ThemeToggler } from "./ThemeToggler";
+import AuthButton from "./AuthButton";
 
 const NavBar = () => {
   return (
@@ -29,9 +28,7 @@ const NavBar = () => {
             <ThemeToggler />
           </div>
           <div>
-            <Link href="/login">
-              <Button>Log In</Button>
-            </Link>
+            <AuthButton />
           </div>
         </div>
       </div>

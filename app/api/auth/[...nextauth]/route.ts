@@ -25,13 +25,11 @@ const handler = NextAuth({
           const db = client.db("tech_talks_DB");
           const usersCollection = db.collection("users");
 
-          // ✅ only search by email
           const user = await usersCollection.findOne({
             email: credentials.email,
           });
           if (!user) return null;
 
-          // ✅ compare provided password with hashed password
           const isValid = await bcrypt.compare(
             credentials.password,
             user.password

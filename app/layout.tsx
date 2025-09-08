@@ -3,6 +3,7 @@ import "./globals.css";
 import NavBar from "@/components/NavBar";
 import { Playfair_Display, Source_Sans_3 } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import AuthProvider from "./providers/AuthProvider";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -35,14 +36,16 @@ export default function RootLayout({
       className={`${playfair.variable} ${sourceSans.variable}`}
     >
       <body className="antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          disableTransitionOnChange
-        >
-          <NavBar />
-          <div className="w-8/12 mx-auto my-5">{children}</div>
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            disableTransitionOnChange
+          >
+            <NavBar />
+            <div className="w-8/12 mx-auto my-5">{children}</div>
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );
