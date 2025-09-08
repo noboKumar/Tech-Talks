@@ -24,20 +24,20 @@ const handler = NextAuth({
           const client = await mongodbPromise;
           const db = client.db("tech_talks_DB");
           const usersCollection = db.collection("users");
+
+          // ✅ only search by email
           const user = await usersCollection.findOne({
             email: credentials.email,
-            password: credentials.password,
           });
-          if (!user) {
-            return null;
-          }
+          if (!user) return null;
+
+          // ✅ compare provided password with hashed password
           const isValid = await bcrypt.compare(
             credentials.password,
             user.password
           );
-          if (!isValid) {
-            return null;
-          }
+          if (!isValid) return null;
+
           return {
             id: user._id.toString(),
             name: user.name,
@@ -50,6 +50,9 @@ const handler = NextAuth({
       },
     }),
   ],
+  session: {
+    strategy: "jwt",
+  },
   secret: process.env.NEXTAUTH_SECRET,
 });
 

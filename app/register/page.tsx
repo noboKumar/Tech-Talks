@@ -2,7 +2,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import axios from "axios";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 
@@ -18,9 +21,33 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
+  const router = useRouter();
 
-  const onSubmit = (data: Inputs) => {
+  const onSubmit = async (data: Inputs) => {
     console.log(data);
+    try {
+      const res = await axios.post("/api/register", {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      });
+
+      if (res.status === 201) {
+        const result = await signIn("credentials", {
+          email: data.email,
+          password: data.password,
+          redirect: false,
+        });
+
+        if (result?.ok) {
+          router.push("/");
+        } else {
+          alert("Invalid email or password");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="space-y-5 border p-10 rounded-md shadow-md max-w-md mx-auto mt-20 bg-card">
@@ -38,15 +65,15 @@ const Register = () => {
         </div>
         {errors.name && <span>This field is required</span>}
 
-        <div>
           {/* File upload */}
+        {/* <div>
           <Label htmlFor="profile">Profile Picture:</Label>
           <Input
             className="file:bg-card file:px-2 file:rounded-xl file:text-sm file:font-medium file:cursor-pointer"
             type="file"
             id="profile"
           />
-        </div>
+        </div> */}
 
         <div>
           {/* email */}

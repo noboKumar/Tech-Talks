@@ -1,18 +1,14 @@
 import mongodbPromise from "@/lib/mongodb";
 import bcrypt from "bcryptjs";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method Not Allowed" });
-  }
-
-  const { name, email, password } = req.body;
-
+export async function POST(req: Request) {
   try {
+    const body = await req.json()
+    console.log("Request body:", body);
+
+    const { name, email, password } = body;
+
     const client = await mongodbPromise;
     const db = client.db("tech_talks_DB");
     const usersCollection = db.collection("users");
@@ -20,8 +16,12 @@ export default async function handler(
     // check if user already exists
     const existingUser = await usersCollection.findOne({ email });
     if (existingUser) {
-      return res.status(422).json({ message: "User already exists" });
+      return NextResponse.json(
+        { message: "User already exists" },
+        { status: 422 }
+      );
     }
+
     // hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -32,11 +32,16 @@ export default async function handler(
       password: hashedPassword,
       createdAt: new Date(),
     });
-    return res
-      .status(201)
-      .json({ message: "User registered", userId: newUser.insertedId });
+
+    return NextResponse.json(
+      { message: "User registered", userId: newUser.insertedId },
+      { status: 201 }
+    );
   } catch (error) {
     console.error("Error registering user:", error);
-    return res.status(500).json({ message: "Internal Server Error" });
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }

@@ -2,7 +2,9 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 type Inputs = {
@@ -17,8 +19,20 @@ const Login = () => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit = (data: Inputs) => {
+  const router = useRouter();
+
+  const onSubmit = async (data: Inputs) => {
     console.log(data);
+    const res = await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    });
+    if (res?.ok) {
+      router.push("/");
+    } else {
+      alert("Invalid email or password");
+    }
   };
 
   return (
