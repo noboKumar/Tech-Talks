@@ -13,7 +13,7 @@ const AuthButton = () => {
       {session ? (
         <div className="flex items-center gap-2">
           <p>Welcome, {session?.user?.name}!</p>
-          <Button className="bg-red-600">Log Out</Button>
+          <Button variant="destructive">Log Out</Button>
         </div>
       ) : (
         <Link href="/login">
