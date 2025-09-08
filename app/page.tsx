@@ -1,10 +1,20 @@
+import UserProfile from "@/components/UserProfile";
+
 export default function Home() {
   return (
-    <div>
-      <h1 className="text-4xl font-bold text-primary">Welcome to Tech Talks</h1>
-      <p className="mt-2 text-lg">
-        A Community Forum for Developers to Share, Collaborate, and Learn
-      </p>
+    <div className="grid grid-cols-4 gap-4 p-4">
+      {/* User Profile */}
+      <div className="border-2 bg-white max-h-fit rounded-xl p-5">
+        <UserProfile />
+      </div>
+      {/* feed */}
+      <div className="col-span-2">
+        <div className="border-2 bg-white min-h-screen"></div>
+      </div>
+      {/* right side */}
+      <div>
+        <div className="border-2 bg-white h-70 max-h-80"></div>
+      </div>
     </div>
   );
 }
