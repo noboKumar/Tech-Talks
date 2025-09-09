@@ -1,3 +1,4 @@
+import PostForm from "@/components/PostForm";
 import UserProfile from "@/components/UserProfile";
 
 export default function Home() {
@@ -10,6 +11,7 @@ export default function Home() {
 
       {/* feed */}
       <div className="col-span-2 border-2 rounded-xl">
+        <PostForm />
         <div className="bg-white min-h-screen rounded-xl"></div>
       </div>
 
