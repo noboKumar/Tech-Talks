@@ -1,12 +1,13 @@
-import { signOut } from "next-auth/react";
+"use client";
+import { signOut, useSession } from "next-auth/react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { toast } from "sonner";
 import AlertCard from "./ui/AlertCard";
-import { getUserSession } from "@/lib/userSession";
 
-const AuthButton = async () => {
-  const user = await getUserSession();
+const AuthButton = () => {
+  const { data: session } = useSession();
+  const user = session?.user;
 
   const handleLogout = () => {
     signOut({
