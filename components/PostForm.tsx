@@ -1,18 +1,27 @@
-import React from "react";
+"use client";
 import { FiCode, FiImage, FiLink, FiVideo } from "react-icons/fi";
 import { Button } from "./ui/button";
+import PostModal from "./PostModal";
+import { useState } from "react";
 
 const PostForm = () => {
+  const [open, isOpen] = useState<boolean>(false);
   return (
     <div className="bg-card p-4 space-y-4 rounded-t-xl mb-5">
       {/* profile photo and text area */}
       <div>
-        <textarea
-        className="w-full rounded-md p-2 focus:outline-none focus:ring-0 resize-none"
-          name="postContent"
-          id="postContent"
-          placeholder="What do you want to talk about?"
-        ></textarea>
+        <PostModal
+          open={open}
+          isOpen={isOpen}
+          trigger={
+            <textarea
+              className="w-full focus:outline-none focus:ring-0 resize-none border-2 rounded-full pt-5 px-5 cursor-pointer"
+              name="postContent"
+              id="postContent"
+              placeholder="What do you want to talk about?"
+            ></textarea>
+          }
+        />
       </div>
       {/* action buttons */}
       <div className="flex justify-between items-center pt-3 px-5">
