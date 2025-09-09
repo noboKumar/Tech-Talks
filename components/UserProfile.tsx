@@ -9,6 +9,7 @@ import {
   FiSettings,
   FiHelpCircle,
 } from "react-icons/fi";
+import { Button } from "./ui/button";
 
 const UserProfile = async () => {
   const user = await getUserSession();
@@ -22,6 +23,19 @@ const UserProfile = async () => {
     { name: "Settings", icon: <FiSettings />, href: "/settings" },
     { name: "Help", icon: <FiHelpCircle />, href: "/help" },
   ];
+  if (!user) {
+    return (
+      <div className="text-center p-6">
+        <p className="text-gray-600 mb-4">
+          You’re not logged in yet. Please sign in to access your profile and
+          connect with others.
+        </p>
+        <Link href="/login">
+          <Button>Log In</Button>
+        </Link>
+      </div>
+    );
+  }
   return (
     <div>
       {/* user info */}
