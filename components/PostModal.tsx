@@ -1,3 +1,4 @@
+"use client";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,6 +11,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "./ui/button";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 
 type PostModalProps = {
   open: boolean;
@@ -18,12 +21,28 @@ type PostModalProps = {
 };
 
 const PostModal = ({ open, setOpen, trigger }: PostModalProps) => {
-  const handlePost = (e: React.FormEvent<HTMLFormElement>) => {
+  const { data: session } = useSession();
+
+  const handlePost = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const postContent = formData.get("postContent");
     const postPhoto = formData.get("postPhoto");
-    console.log(postContent, postPhoto);
+    const postBy = session?.user?.email;
+
+    const data = {
+      postContent: postContent,
+      postPhoto: postPhoto,
+      postBy: postBy,
+    };
+
+    try {
+      const res = await axios.post("/api/post", data);
+      console.log(res.data);
+      setOpen(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
