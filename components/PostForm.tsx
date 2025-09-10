@@ -5,14 +5,14 @@ import PostModal from "./PostModal";
 import { useState } from "react";
 
 const PostForm = () => {
-  const [open, isOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
   return (
     <div className="bg-card p-4 space-y-4 rounded-t-xl mb-5">
       {/* profile photo and text area */}
       <div>
         <PostModal
           open={open}
-          isOpen={isOpen}
+          setOpen={setOpen}
           trigger={
             <textarea
               className="w-full focus:outline-none focus:ring-0 resize-none border-2 rounded-full pt-5 px-5 cursor-pointer"

@@ -21,7 +21,6 @@ const AuthButton = () => {
       {user ? (
         <>
           <div className="flex items-center gap-2">
-            <p>Welcome, {user?.name}!</p>
             <AlertCard
               button={<Button variant="destructive">Log Out</Button>}
               title="Are you sure you want to log out?"

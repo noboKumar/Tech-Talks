@@ -9,29 +9,54 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Button } from "./ui/button";
 
 type PostModalProps = {
   open: boolean;
-  isOpen: (open: boolean) => void;
+  setOpen: (open: boolean) => void;
   trigger: React.ReactNode;
 };
 
-const PostModal = ({ open, isOpen, trigger }: PostModalProps) => {
+const PostModal = ({ open, setOpen, trigger }: PostModalProps) => {
+  const handlePost = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const postContent = formData.get("postContent");
+    const postPhoto = formData.get("postPhoto");
+    console.log(postContent, postPhoto);
+  };
   return (
-    <AlertDialog open={open} onOpenChange={isOpen}>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
-        </AlertDialogFooter>
+      <AlertDialogContent className="bg-card">
+        <form onSubmit={handlePost}>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-2xl font-bold">
+              Add Your Post
+            </AlertDialogTitle>
+            <AlertDialogDescription className="py-5">
+              <textarea
+                className="w-full border-2 rounded-2xl p-2"
+                name="postContent"
+                placeholder="Share Your Thoughts..."
+              />
+              <input
+                type="link"
+                className="border-2 w-full rounded-2xl p-2"
+                name="postPhoto"
+                placeholder="Photo Link"
+              />
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setOpen(false)}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction asChild>
+              <Button type="submit">Post</Button>
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </form>
       </AlertDialogContent>
     </AlertDialog>
   );
