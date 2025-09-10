@@ -1,3 +1,4 @@
+import PostFeed from "@/components/PostFeed";
 import PostForm from "@/components/PostForm";
 import UserProfile from "@/components/UserProfile";
 
@@ -12,7 +13,9 @@ export default function Home() {
       {/* feed */}
       <div className="col-span-2 border-2 rounded-xl">
         <PostForm />
-        <div className="bg-card min-h-screen rounded-xl"></div>
+        <div className="bg-card min-h-screen rounded-xl">
+          <PostFeed />
+        </div>
       </div>
 
       {/* right side */}

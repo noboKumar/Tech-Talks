@@ -28,12 +28,14 @@ const PostModal = ({ open, setOpen, trigger }: PostModalProps) => {
     const formData = new FormData(e.currentTarget);
     const postContent = formData.get("postContent");
     const postPhoto = formData.get("postPhoto");
-    const postBy = session?.user?.email;
+    const postBy_email = session?.user?.email;
+    const postBy_name = session?.user?.name;
 
     const data = {
       postContent: postContent,
       postPhoto: postPhoto,
-      postBy: postBy,
+      postBy_email: postBy_email,
+      postBy_name: postBy_name,
     };
 
     try {
