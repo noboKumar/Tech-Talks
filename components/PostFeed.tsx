@@ -76,7 +76,7 @@ const PostFeed = async () => {
           </div>
 
           {/* comment input */}
-          <CommentInput />
+          <CommentInput postId={post?._id.toString()} />
           <hr />
         </div>
       ))}
