@@ -4,6 +4,7 @@ import React from "react";
 import { Button } from "./ui/button";
 import { useSession } from "next-auth/react";
 import axios from "axios";
+import { toast } from "sonner";
 
 const CommentInput = ({ postId }: { postId: string }) => {
   const { data: session } = useSession();
@@ -27,6 +28,9 @@ const CommentInput = ({ postId }: { postId: string }) => {
         commentBy_name: commentBy_name,
         commentBy_userPhoto: commentBy_userPhoto,
       });
+      toast.success("Comment posted successfully");
+      //   reset form
+      (e.target as HTMLFormElement).reset();
     } catch (error) {
       console.log("error on comment input: " + error);
     }
