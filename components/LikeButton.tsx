@@ -12,6 +12,7 @@ const LikeButton = ({ postId, likes }: { postId: string; likes: string[] }) => {
 
   const [showHeart, setShowHeart] = useState<boolean>(false);
   const [liked, setLiked] = useState<boolean>(false);
+  const [likesCount, setLikesCount] = useState<number>(likes?.length || 0);
 
   useEffect(() => {
     if (user) {
@@ -25,6 +26,7 @@ const LikeButton = ({ postId, likes }: { postId: string; likes: string[] }) => {
     const newLiked = !liked;
     setShowHeart(newLiked);
     setLiked(newLiked);
+    setLikesCount((prev) => (newLiked ? prev + 1 : prev - 1));
 
     // remove after animation
     setTimeout(() => setShowHeart(false), 1000);
@@ -52,7 +54,7 @@ const LikeButton = ({ postId, likes }: { postId: string; likes: string[] }) => {
         }`}
       >
         {liked ? <FaHeart /> : <FiHeart />}
-        <span>{likes?.length} Like</span>
+        <span>{likesCount} Likes</span>
       </Button>
 
       {/* Popup heart over the photo */}
