@@ -1,32 +1,40 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 
-const LikeButton = ({ postId }: { postId: string }) => {
-  const [showHeart, setShowHeart] = useState<boolean>(false);
-  const [liked, setLiked] = useState<boolean>(false);
+const LikeButton = ({ postId, likes }: { postId: string; likes: string[] }) => {
   const { data } = useSession();
   const user = data?.user;
 
+  const [showHeart, setShowHeart] = useState<boolean>(false);
+  const [liked, setLiked] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (user) {
+      setLiked(user?.email ? likes?.includes(user.email) : false);
+    } else {
+      setLiked(false);
+    }
+  }, [likes, user]);
+
   const handleLike = async () => {
-    setShowHeart(!showHeart);
-    setLiked(!liked);
+    const newLiked = !liked;
+    setShowHeart(newLiked);
+    setLiked(newLiked);
 
     // remove after animation
-    setTimeout(() => {
-      setShowHeart(false);
-    }, 1000);
+    setTimeout(() => setShowHeart(false), 1000);
 
     console.log("Liked post:", postId);
 
     try {
       await axios.patch("/api/post", {
         postId: postId,
-        liked: liked,
+        liked: newLiked,
         userEmail: user?.email,
       });
     } catch (error) {
@@ -44,7 +52,7 @@ const LikeButton = ({ postId }: { postId: string }) => {
         }`}
       >
         {liked ? <FaHeart /> : <FiHeart />}
-        <span>1 Like</span>
+        <span>{likes?.length} Like</span>
       </Button>
 
       {/* Popup heart over the photo */}
