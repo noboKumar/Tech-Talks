@@ -1,7 +1,8 @@
 import mongodbPromise from "@/lib/mongodb";
 import Image from "next/image";
-import { FiHeart, FiMessageCircle, FiBookmark } from "react-icons/fi";
+import { FiMessageCircle, FiBookmark } from "react-icons/fi";
 import { Button } from "./ui/button";
+import LikeButton from "./LikeButton";
 
 const PostFeed = async () => {
   const client = await mongodbPromise;
@@ -13,11 +14,14 @@ const PostFeed = async () => {
     .toArray();
   console.log({ posts });
 
+  const postId = 10;
+
   return (
     <div>
       {posts.map((post) => (
         <div className="p-5" key={post._id.toString()}>
-          <div className="flex items-center gap-2 ">
+          {/* author div */}
+          <div className="flex items-center gap-2">
             <Image
               src={
                 (post?.postBy_userPhoto && post?.postBy_userPhoto) ||
@@ -35,6 +39,7 @@ const PostFeed = async () => {
               </p>
             </div>
           </div>
+
           {/* post content */}
           <p className="text-gray-500 line-clamp-2 my-5">{post?.postContent}</p>
 
@@ -51,19 +56,14 @@ const PostFeed = async () => {
           {/* action button */}
           <div className="flex justify-around mt-3 border-t border-b py-2">
             {/* Like Button */}
-            <Button
-              variant="ghost"
-              className="flex items-center gap-2 text-gray-600 hover:text-red-500 transition-colors"
-            >
-              <FiHeart /> <span>Like</span>
-            </Button>
+            <LikeButton postId={postId.toString()} />
 
             {/* Comment Button */}
             <Button
               variant="ghost"
               className="flex items-center gap-2 text-gray-600 hover:text-blue-500 transition-colors"
             >
-              <FiMessageCircle /> <span>Comment</span>
+              <FiMessageCircle /> <span>1 Comment</span>
             </Button>
 
             {/* Save Button */}
