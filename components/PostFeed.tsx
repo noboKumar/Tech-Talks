@@ -3,6 +3,7 @@ import Image from "next/image";
 import { FiMessageCircle, FiBookmark } from "react-icons/fi";
 import { Button } from "./ui/button";
 import LikeButton from "./LikeButton";
+import Link from "next/link";
 
 const PostFeed = async () => {
   const client = await mongodbPromise;
@@ -39,7 +40,11 @@ const PostFeed = async () => {
           </div>
 
           {/* post content */}
-          <p className="text-gray-500 line-clamp-2 my-5">{post?.postContent}</p>
+          <Link href={`/${post._id.toString()}`}>
+            <p className="text-gray-500 line-clamp-2 my-5 cursor-pointer">
+              {post?.postContent}
+            </p>
+          </Link>
 
           {/* post photo */}
           <Image
@@ -54,7 +59,7 @@ const PostFeed = async () => {
           {/* action button */}
           <div className="flex justify-around my-3 border-t border-b py-2">
             {/* Like Button */}
-            <LikeButton postId={post._id.toString()} />
+            <LikeButton postId={post?._id.toString()} />
 
             {/* Comment Button */}
             <Button
