@@ -14,8 +14,6 @@ const PostFeed = async () => {
     .toArray();
   console.log({ posts });
 
-  const postId = 10;
-
   return (
     <div>
       {posts.map((post) => (
@@ -56,7 +54,7 @@ const PostFeed = async () => {
           {/* action button */}
           <div className="flex justify-around mt-3 border-t border-b py-2">
             {/* Like Button */}
-            <LikeButton postId={postId.toString()} />
+            <LikeButton postId={post._id.toString()} />
 
             {/* Comment Button */}
             <Button

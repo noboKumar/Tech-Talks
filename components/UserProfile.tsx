@@ -10,6 +10,7 @@ import {
   FiHelpCircle,
 } from "react-icons/fi";
 import { Button } from "./ui/button";
+import Image from "next/image";
 
 const UserProfile = async () => {
   const user = await getUserSession();
@@ -40,6 +41,15 @@ const UserProfile = async () => {
     <div>
       {/* user info */}
       <div className="text-center">
+        <Image
+          className="mx-auto"
+          height={100}
+          width={100}
+          src={
+            "https://i.ibb.co/pB4pgNhr/depositphotos-119671346-stock-illustration-user-icon-vector-male-person.webp"
+          }
+          alt="user-photo"
+        />
         <h2 className="text-lg font-bold">{user?.name}</h2>
         <p className="text-sm text-gray-400">Web Developer</p>
         <p className="text-lg mt-2 text-gray-500">
