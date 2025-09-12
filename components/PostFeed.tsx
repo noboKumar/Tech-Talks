@@ -64,7 +64,7 @@ const PostFeed = async () => {
             <LikeButton postId={post?._id.toString()} likes={post?.likes} />
 
             {/* Comment Button */}
-            <CommentButton />
+            <CommentButton comments={post?.comments} />
 
             {/* Save Button */}
             <Button
