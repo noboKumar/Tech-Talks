@@ -17,7 +17,7 @@ const LikeButton = ({ postId }: { postId: string }) => {
   };
   return (
     <div className="relative">
-      {/* Actual like button */}
+      {/* like button */}
       <Button
         onClick={handleLike}
         variant="ghost"
@@ -26,7 +26,7 @@ const LikeButton = ({ postId }: { postId: string }) => {
         <FiHeart /> <span>Like</span>
       </Button>
 
-      {/* Popup ❤️ over the photo */}
+      {/* Popup heart over the photo */}
       {showHeart && (
         <span className="absolute left-1/2 -top-40 -translate-x-1/2 text-red-500 text-6xl animate-float">
           ❤️

@@ -52,7 +52,7 @@ const PostFeed = async () => {
           />
 
           {/* action button */}
-          <div className="flex justify-around mt-3 border-t border-b py-2">
+          <div className="flex justify-around my-3 border-t border-b py-2">
             {/* Like Button */}
             <LikeButton postId={post._id.toString()} />
 

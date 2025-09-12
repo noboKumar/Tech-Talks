@@ -13,6 +13,7 @@ import {
 import { Button } from "./ui/button";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 type PostModalProps = {
   open: boolean;
@@ -50,34 +51,52 @@ const PostModal = ({ open, setOpen, trigger }: PostModalProps) => {
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
       <AlertDialogContent className="bg-card">
-        <form onSubmit={handlePost}>
+        {session ? (
+          <form onSubmit={handlePost}>
+            <AlertDialogHeader>
+              <AlertDialogTitle className="text-2xl font-bold">
+                Add Your Post
+              </AlertDialogTitle>
+              <AlertDialogDescription className="py-5">
+                <textarea
+                  className="w-full border-2 rounded-2xl p-2"
+                  name="postContent"
+                  placeholder="Share Your Thoughts..."
+                />
+                <input
+                  type="link"
+                  className="border-2 w-full rounded-2xl p-2"
+                  name="postPhoto"
+                  placeholder="Photo Link"
+                />
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => setOpen(false)}>
+                Cancel
+              </AlertDialogCancel>
+              <AlertDialogAction asChild>
+                <Button type="submit">Post</Button>
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </form>
+        ) : (
           <AlertDialogHeader>
             <AlertDialogTitle className="text-2xl font-bold">
-              Add Your Post
+              Please Login to Post
             </AlertDialogTitle>
-            <AlertDialogDescription className="py-5">
-              <textarea
-                className="w-full border-2 rounded-2xl p-2"
-                name="postContent"
-                placeholder="Share Your Thoughts..."
-              />
-              <input
-                type="link"
-                className="border-2 w-full rounded-2xl p-2"
-                name="postPhoto"
-                placeholder="Photo Link"
-              />
-            </AlertDialogDescription>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => setOpen(false)}>
+                Cancel
+              </AlertDialogCancel>
+              <AlertDialogAction asChild>
+                <Link href="/login">
+                  <Button>Login</Button>
+                </Link>
+              </AlertDialogAction>
+            </AlertDialogFooter>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setOpen(false)}>
-              Cancel
-            </AlertDialogCancel>
-            <AlertDialogAction asChild>
-              <Button type="submit">Post</Button>
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </form>
+        )}
       </AlertDialogContent>
     </AlertDialog>
   );
