@@ -30,13 +30,13 @@ const PostDetails = async ({ params }: { params: { id: string } }) => {
       <div className="p-5 border-2 rounded-2xl bg-card">
         {/* user details */}
         <div>
-          <h1 className="text-2xl">{post?.postBy_name}</h1>
+          <h1 className="text-2xl font-semibold">{post?.postBy_name || "anonymous"}</h1>
           <p>{post?.createdAt && new Date(post.createdAt).toLocaleString()}</p>
         </div>
 
         {/* post contents */}
         <div className="space-y-5 py-5">
-          <p className="text-xl">{post?.postContent}</p>
+          <p className="text-xl text-gray-500">{post?.postContent}</p>
           <Image
             src={post?.postPhoto}
             alt="post photo"
