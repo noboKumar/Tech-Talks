@@ -34,7 +34,7 @@ const LikeButton = ({ postId, likes }: { postId: string; likes: string[] }) => {
     console.log("Liked post:", postId);
 
     try {
-      await axios.patch("/api/post", {
+      await axios.patch("/api/post/like", {
         postId: postId,
         liked: newLiked,
         userEmail: user?.email,
