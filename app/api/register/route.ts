@@ -7,7 +7,7 @@ export async function POST(req: Request) {
     const body = await req.json()
     console.log("Request body:", body);
 
-    const { name, email, password } = body;
+    const { name, email, password, image } = body;
 
     const client = await mongodbPromise;
     const db = client.db("tech_talks_DB");
@@ -29,6 +29,7 @@ export async function POST(req: Request) {
     const newUser = await usersCollection.insertOne({
       name,
       email,
+      image,
       password: hashedPassword,
       createdAt: new Date(),
     });

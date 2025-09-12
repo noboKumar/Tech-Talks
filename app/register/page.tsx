@@ -6,13 +6,13 @@ import axios from "axios";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
 import { useForm } from "react-hook-form";
 
 type Inputs = {
   name: string;
   email: string;
   password: string;
+  image: string;
 };
 
 const Register = () => {
@@ -30,6 +30,7 @@ const Register = () => {
         name: data.name,
         email: data.email,
         password: data.password,
+        image: data.image,
       });
 
       if (res.status === 201) {
@@ -53,8 +54,8 @@ const Register = () => {
     <div className="space-y-5 border p-10 rounded-md shadow-md max-w-md mx-auto mt-20 bg-card">
       <h1 className="text-4xl font-bold text-primary">Register Now</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
+        {/* name */}
         <div>
-          {/* name */}
           <Label htmlFor="name">Name:</Label>
           <Input
             type="text"
@@ -65,18 +66,19 @@ const Register = () => {
         </div>
         {errors.name && <span>This field is required</span>}
 
-          {/* File upload */}
-        {/* <div>
-          <Label htmlFor="profile">Profile Picture:</Label>
-          <Input
-            className="file:bg-card file:px-2 file:rounded-xl file:text-sm file:font-medium file:cursor-pointer"
-            type="file"
-            id="profile"
-          />
-        </div> */}
-
+        {/* Photo upload */}
         <div>
-          {/* email */}
+          <Label htmlFor="userImage">Photo:</Label>
+          <Input
+            type="text"
+            id="userImage"
+            placeholder="Photo Link"
+            {...register("image")}
+          />
+        </div>
+
+        {/* email */}
+        <div>
           <Label htmlFor="email">Email:</Label>
           <Input
             type="email"
@@ -87,8 +89,8 @@ const Register = () => {
         </div>
         {errors.email && <span>This field is required</span>}
 
+        {/* password */}
         <div>
-          {/* password */}
           <Label htmlFor="password">Password:</Label>
           <Input
             type="password"

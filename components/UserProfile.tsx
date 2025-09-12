@@ -14,6 +14,7 @@ import Image from "next/image";
 
 const UserProfile = async () => {
   const user = await getUserSession();
+  console.log(user);
 
   const menuItems = [
     { name: "Feed", icon: <FiHome />, href: "/feed" },
@@ -42,10 +43,11 @@ const UserProfile = async () => {
       {/* user info */}
       <div className="text-center">
         <Image
-          className="mx-auto"
+          className="mx-auto rounded-full"
           height={100}
           width={100}
           src={
+            user?.image ||
             "https://i.ibb.co/pB4pgNhr/depositphotos-119671346-stock-illustration-user-icon-vector-male-person.webp"
           }
           alt="user-photo"
