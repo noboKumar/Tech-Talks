@@ -1,6 +1,7 @@
 import CommentButton from "@/components/CommentButton";
 import CommentInput from "@/components/CommentInput";
 import LikeButton from "@/components/LikeButton";
+import SaveButton from "@/components/SaveButton";
 import { Button } from "@/components/ui/button";
 import { dataBase } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
@@ -71,12 +72,7 @@ const PostDetails = async ({ params }: { params: { id: string } }) => {
           <CommentButton comments={post?.comments} postId={id} />
 
           {/* Save Button */}
-          <Button
-            variant="ghost"
-            className="flex items-center gap-2 text-gray-600 hover:text-green-500 transition-colors"
-          >
-            <FiBookmark /> <span>Save</span>
-          </Button>
+          <SaveButton />
         </div>
 
         <div>
@@ -96,7 +92,9 @@ const PostDetails = async ({ params }: { params: { id: string } }) => {
                 />
                 <div className="border-2 rounded-2xl p-4 w-full space-y-2 bg-accent">
                   <h1 className="font-bold">{comment.commentBy_name}</h1>
-                  <p className="text-sm text-gray-500">{new Date(comment.createdAt).toLocaleString()}</p>
+                  <p className="text-sm text-gray-500">
+                    {new Date(comment.createdAt).toLocaleString()}
+                  </p>
                   <p className="text-lg">{comment.comment}</p>
                 </div>
               </div>

@@ -1,11 +1,10 @@
 import mongodbPromise from "@/lib/mongodb";
 import Image from "next/image";
-import { FiBookmark } from "react-icons/fi";
-import { Button } from "./ui/button";
 import LikeButton from "./LikeButton";
 import Link from "next/link";
 import CommentButton from "./CommentButton";
 import CommentInput from "./CommentInput";
+import SaveButton from "./SaveButton";
 
 const PostFeed = async () => {
   const client = await mongodbPromise;
@@ -73,12 +72,7 @@ const PostFeed = async () => {
             />
 
             {/* Save Button */}
-            <Button
-              variant="ghost"
-              className="flex items-center gap-2 text-gray-600 hover:text-green-500 transition-colors"
-            >
-              <FiBookmark /> <span>Save</span>
-            </Button>
+            <SaveButton />
           </div>
 
           {/* comment input */}
