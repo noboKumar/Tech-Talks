@@ -10,7 +10,7 @@ const CommentButton = ({
   postId: string;
 }) => {
   return (
-    <Link href={`/${postId}`}>
+    <Link href={`/${postId}#comments`}>
       <Button
         variant="ghost"
         className="flex items-center gap-2 text-gray-600 hover:text-blue-500 transition-colors"

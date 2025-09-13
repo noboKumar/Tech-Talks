@@ -83,7 +83,7 @@ const PostDetails = async ({ params }: { params: { id: string } }) => {
           <CommentInput postId={id} />
           <hr />
 
-          <div className="space-y-5 py-5">
+          <div className="space-y-5 py-5" id="comments">
             {/* comments */}
             {post?.comments.map((comment: Comment, index: number) => (
               <div key={index} className="flex items-start gap-2">
