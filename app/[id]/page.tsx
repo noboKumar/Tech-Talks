@@ -8,7 +8,6 @@ import { ObjectId } from "mongodb";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { FiBookmark } from "react-icons/fi";
 import { IoMdArrowRoundBack } from "react-icons/io";
 
 type Comment = {

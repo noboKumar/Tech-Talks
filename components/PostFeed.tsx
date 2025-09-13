@@ -72,7 +72,7 @@ const PostFeed = async () => {
             />
 
             {/* Save Button */}
-            <SaveButton />
+            <SaveButton postId={post?._id.toString()} />
           </div>
 
           {/* comment input */}
