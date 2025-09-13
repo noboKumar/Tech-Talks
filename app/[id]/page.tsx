@@ -1,3 +1,4 @@
+import CommentButton from "@/components/CommentButton";
 import LikeButton from "@/components/LikeButton";
 import { Button } from "@/components/ui/button";
 import { dataBase } from "@/lib/mongodb";
@@ -5,7 +6,7 @@ import { ObjectId } from "mongodb";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { FiBookmark, FiMessageCircle } from "react-icons/fi";
+import { FiBookmark } from "react-icons/fi";
 import { IoMdArrowRoundBack } from "react-icons/io";
 
 const PostDetails = async ({ params }: { params: { id: string } }) => {
@@ -30,35 +31,35 @@ const PostDetails = async ({ params }: { params: { id: string } }) => {
       <div className="p-5 border-2 rounded-2xl bg-card">
         {/* user details */}
         <div>
-          <h1 className="text-2xl font-semibold">{post?.postBy_name || "anonymous"}</h1>
+          <h1 className="text-2xl font-semibold">
+            {post?.postBy_name || "anonymous"}
+          </h1>
           <p>{post?.createdAt && new Date(post.createdAt).toLocaleString()}</p>
         </div>
 
         {/* post contents */}
         <div className="space-y-5 py-5">
           <p className="text-xl text-gray-500">{post?.postContent}</p>
-          <Image
-            src={post?.postPhoto}
-            alt="post photo"
-            width={400}
-            height={400}
-            priority
-            className="rounded-xl mx-auto w-full object-cover"
-          />
+          <div className="border-2 rounded-2xl">
+            <Image
+              src={post?.postPhoto}
+              draggable={false}
+              alt="post photo"
+              width={400}
+              height={400}
+              priority
+              className="rounded-xl mx-auto w-full object-cover"
+            />
+          </div>
         </div>
 
         {/* action button */}
         <div className="flex justify-around my-3 border-t border-b py-2">
           {/* Like Button */}
-          <LikeButton postId={id} />
+          <LikeButton postId={id} likes={post?.likes} />
 
           {/* Comment Button */}
-          <Button
-            variant="ghost"
-            className="flex items-center gap-2 text-gray-600 hover:text-blue-500 transition-colors"
-          >
-            <FiMessageCircle /> <span>1 Comment</span>
-          </Button>
+          <CommentButton comments={post?.comments} postId={id} />
 
           {/* Save Button */}
           <Button

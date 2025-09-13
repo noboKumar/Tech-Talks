@@ -49,14 +49,17 @@ const PostFeed = async () => {
           </Link>
 
           {/* post photo */}
-          <Image
-            width={400}
-            height={400}
-            priority
-            className="rounded-xl mx-auto w-full object-cover"
-            src={post?.postPhoto}
-            alt="post photo"
-          />
+          <div className="border-2 rounded-2xl">
+            <Image
+              width={400}
+              height={400}
+              priority
+              draggable={false}
+              className="rounded-xl mx-auto w-full object-cover"
+              src={post?.postPhoto}
+              alt="post photo"
+            />
+          </div>
 
           {/* action button */}
           <div className="flex justify-around my-3 border-t border-b py-2">
@@ -64,7 +67,10 @@ const PostFeed = async () => {
             <LikeButton postId={post?._id.toString()} likes={post?.likes} />
 
             {/* Comment Button */}
-            <CommentButton comments={post?.comments} postId={post?._id.toString()} />
+            <CommentButton
+              comments={post?.comments}
+              postId={post?._id.toString()}
+            />
 
             {/* Save Button */}
             <Button
