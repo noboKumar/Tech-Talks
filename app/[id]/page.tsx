@@ -1,4 +1,5 @@
 import CommentButton from "@/components/CommentButton";
+import CommentInput from "@/components/CommentInput";
 import LikeButton from "@/components/LikeButton";
 import { Button } from "@/components/ui/button";
 import { dataBase } from "@/lib/mongodb";
@@ -8,6 +9,14 @@ import Link from "next/link";
 import React from "react";
 import { FiBookmark } from "react-icons/fi";
 import { IoMdArrowRoundBack } from "react-icons/io";
+
+type Comment = {
+  comment: string;
+  commentBy_email: string;
+  commentBy_name: string;
+  commentBy_userPhoto: string;
+  createdAt: Date;
+};
 
 const PostDetails = async ({ params }: { params: { id: string } }) => {
   const { id } = await params;
@@ -68,6 +77,31 @@ const PostDetails = async ({ params }: { params: { id: string } }) => {
           >
             <FiBookmark /> <span>Save</span>
           </Button>
+        </div>
+
+        <div>
+          <CommentInput postId={id} />
+          <hr />
+
+          <div className="space-y-5 py-5">
+            {/* comments */}
+            {post?.comments.map((comment: Comment, index: number) => (
+              <div key={index} className="flex items-start gap-2">
+                <Image
+                  src={comment.commentBy_userPhoto}
+                  alt="user photo"
+                  width={40}
+                  height={40}
+                  className="rounded-full"
+                />
+                <div className="border-2 rounded-2xl p-4 w-full space-y-2 bg-accent">
+                  <h1 className="font-bold">{comment.commentBy_name}</h1>
+                  <p className="text-sm text-gray-500">{new Date(comment.createdAt).toLocaleString()}</p>
+                  <p className="text-lg">{comment.comment}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
