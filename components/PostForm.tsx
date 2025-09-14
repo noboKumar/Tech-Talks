@@ -15,13 +15,17 @@ const PostForm = () => {
     <div className="bg-card p-4 space-y-4 rounded-t-xl mb-5">
       {/* profile photo and text area */}
       <div className="flex items-center gap-2">
-        <Image
-          className="mx-auto rounded-full z-10"
-          src={user?.image || ""}
-          width={40}
-          height={40}
-          alt="user photo"
-        />
+        {user ? (
+          <Image
+            className="mx-auto rounded-full z-10"
+            src={user?.image || ""}
+            width={40}
+            height={40}
+            alt="user photo"
+          />
+        ) : (
+          ""
+        )}
         <PostModal
           open={open}
           setOpen={setOpen}

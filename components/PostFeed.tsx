@@ -5,6 +5,8 @@ import Link from "next/link";
 import CommentButton from "./CommentButton";
 import CommentInput from "./CommentInput";
 import SaveButton from "./SaveButton";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 const PostFeed = async () => {
   const client = await mongodbPromise;
@@ -15,6 +17,8 @@ const PostFeed = async () => {
     .sort({ createdAt: -1 })
     .toArray();
   console.log({ posts });
+
+  const session = await getServerSession(authOptions);
 
   return (
     <div>
@@ -63,20 +67,29 @@ const PostFeed = async () => {
           {/* action button */}
           <div className="flex justify-around my-3 border-t border-b py-2">
             {/* Like Button */}
-            <LikeButton postId={post?._id.toString()} likes={post?.likes} />
+            <LikeButton
+              isLoggedIn={!!session}
+              postId={post?._id.toString()}
+              likes={post?.likes}
+            />
 
             {/* Comment Button */}
             <CommentButton
+              isLoggedIn={!!session}
               comments={post?.comments}
               postId={post?._id.toString()}
             />
 
             {/* Save Button */}
-            <SaveButton postId={post?._id.toString()} savedBy={post?.savedBy} />
+            <SaveButton
+              isLoggedIn={!!session}
+              postId={post?._id.toString()}
+              savedBy={post?.savedBy}
+            />
           </div>
 
           {/* comment input */}
-          <CommentInput postId={post?._id.toString()} />
+          <CommentInput isLoggedIn={!!session} postId={post?._id.toString()} />
           <hr />
         </div>
       ))}

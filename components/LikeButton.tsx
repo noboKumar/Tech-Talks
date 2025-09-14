@@ -5,8 +5,15 @@ import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { toast } from "sonner";
 
-const LikeButton = ({ postId, likes }: { postId: string; likes: string[] }) => {
+type LikeButtonProps = {
+  postId: string;
+  likes: string[];
+  isLoggedIn: boolean;
+};
+
+const LikeButton = ({ postId, likes, isLoggedIn }: LikeButtonProps) => {
   const { data } = useSession();
   const user = data?.user;
 
@@ -28,10 +35,13 @@ const LikeButton = ({ postId, likes }: { postId: string; likes: string[] }) => {
     setLiked(newLiked);
     setLikesCount((prev) => (newLiked ? prev + 1 : prev - 1));
 
+    if (!isLoggedIn) {
+      toast.error("Please login to like");
+      return;
+    }
+
     // remove after animation
     setTimeout(() => setShowHeart(false), 1000);
-
-    console.log("Liked post:", postId);
 
     try {
       await axios.patch("/api/post/like", {
@@ -49,6 +59,7 @@ const LikeButton = ({ postId, likes }: { postId: string; likes: string[] }) => {
       <Button
         onClick={handleLike}
         variant="ghost"
+        disabled={!isLoggedIn}
         className={`flex items-center gap-2 text-gray-600 hover:text-red-500 transition-colors ${
           liked ? "text-red-500" : ""
         }`}

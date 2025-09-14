@@ -7,13 +7,13 @@ import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { IoBookmark } from "react-icons/io5";
 
-const SaveButton = ({
-  postId,
-  savedBy,
-}: {
+type SaveButtonProps = {
   postId: string;
   savedBy: string[];
-}) => {
+  isLoggedIn: boolean;
+};
+
+const SaveButton = ({ postId, savedBy, isLoggedIn }: SaveButtonProps) => {
   const { data: session } = useSession();
   const user = session?.user;
 
@@ -54,6 +54,7 @@ const SaveButton = ({
   return (
     <Button
       onClick={handleSave}
+      disabled={!isLoggedIn}
       variant="ghost"
       className="flex items-center gap-2 text-gray-600 hover:text-green-500 transition-colors"
     >

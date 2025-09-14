@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import axios from "axios";
 import { toast } from "sonner";
 
-const CommentInput = ({ postId }: { postId: string }) => {
+const CommentInput = ({ postId, isLoggedIn }: { postId: string, isLoggedIn: boolean }) => {
   const { data: session } = useSession();
   const user = session?.user;
 
@@ -54,7 +54,7 @@ const CommentInput = ({ postId }: { postId: string }) => {
           type="text"
           required
         />
-        <Button type="submit">Post</Button>
+        <Button disabled={!isLoggedIn} type="submit">Post</Button>
       </form>
     </div>
   );
