@@ -18,7 +18,10 @@ const PostForm = () => {
         {user ? (
           <Image
             className="mx-auto rounded-full z-10"
-            src={user?.image || ""}
+            src={
+              user?.image ||
+              "https://i.ibb.co/pB4pgNhr/depositphotos-119671346-stock-illustration-user-icon-vector-male-person.webp"
+            }
             width={40}
             height={40}
             alt="user photo"

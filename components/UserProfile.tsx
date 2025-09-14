@@ -11,10 +11,21 @@ import {
 } from "react-icons/fi";
 import { Button } from "./ui/button";
 import Image from "next/image";
+import mongodbPromise from "@/lib/mongodb";
 
 const UserProfile = async () => {
   const user = await getUserSession();
-  console.log(user);
+  const myPosts = [];
+
+  if (user?.email) {
+    const client = await mongodbPromise;
+    const db = client.db("tech_talks_DB");
+    const postCollection = db.collection("post");
+    const posts = await postCollection
+      .find({ postBy_email: user?.email })
+      .toArray();
+    myPosts.push(...posts);
+  }
 
   const menuItems = [
     { name: "Feed", icon: <FiHome />, href: "/feed" },
@@ -59,21 +70,30 @@ const UserProfile = async () => {
           code.
         </p>
       </div>
-      {/* follower stats */}
-      <div className="flex justify-around my-4">
-        <div className="flex flex-col text-center border-r-2 border-gray-300 pr-4">
-          <span className="font-bold">20</span>
-          <span className="text-gray-500">Posts</span>
-        </div>
-        <div className="flex flex-col text-center border-r-2 border-gray-300 px-4">
-          <span className="font-bold">100</span>
-          <span className="text-gray-500">Followers</span>
-        </div>
-        <div className="flex flex-col text-center pl-4">
-          <span className="font-bold">50</span>
-          <span className="text-gray-500">Following</span>
+      {/* Follower Stats Card */}
+      <div className="max-w-md mx-auto my-6 bg-white shadow-md rounded-xl p-4">
+        <div className="grid grid-cols-3 divide-x divide-gray-300 text-center">
+          <div className="flex flex-col">
+            <span className="font-bold text-lg sm:text-xl">
+              {myPosts?.length || 0}
+            </span>
+            <span className="text-gray-500 text-sm sm:text-base">Posts</span>
+          </div>
+          <div className="flex flex-col">
+            <span className="font-bold text-lg sm:text-xl">100</span>
+            <span className="text-gray-500 text-sm sm:text-base">
+              Followers
+            </span>
+          </div>
+          <div className="flex flex-col">
+            <span className="font-bold text-lg sm:text-xl">50</span>
+            <span className="text-gray-500 text-sm sm:text-base">
+              Following
+            </span>
+          </div>
         </div>
       </div>
+
       <hr className="my-4 border-gray-300 border" />
       {/* route */}
       <div>
