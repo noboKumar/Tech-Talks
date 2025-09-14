@@ -16,7 +16,7 @@ const Logo = () => {
             height={40}
           />
         </div>
-        <h1 className="font-bold text-2xl text-primary">Tech Talks</h1>
+        <h1 className="font-bold text-2xl text-primary hidden md:block">Tech Talks</h1>
       </div>
     </Link>
   );

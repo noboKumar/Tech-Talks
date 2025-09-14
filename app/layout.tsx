@@ -44,7 +44,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <NavBar />
-            <div className="w-8/12 mx-auto my-5">{children}</div>
+            <div className="lg:w-8/12 mx-auto my-5">{children}</div>
           </ThemeProvider>
         </AuthProvider>
         <Toaster />

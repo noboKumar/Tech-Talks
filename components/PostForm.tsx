@@ -14,17 +14,14 @@ const PostForm = () => {
           open={open}
           setOpen={setOpen}
           trigger={
-            <textarea
-              className="w-full focus:outline-none focus:ring-0 resize-none border-2 rounded-full pt-5 px-5 cursor-pointer"
-              name="postContent"
-              id="postContent"
-              placeholder="What do you want to talk about?"
-            ></textarea>
+            <p className="w-full border-2 rounded-full py-2 px-5 cursor-pointer text-gray-400">
+              What do you think?
+            </p>
           }
         />
       </div>
       {/* action buttons */}
-      <div className="flex justify-between items-center pt-3 px-5">
+      <div className="flex flex-wrap items-center gap-2 pt-3 px-5 justify-between">
         <Button
           variant="outline"
           className="flex items-center gap-2 text-gray-600 hover:text-blue-500"
@@ -39,13 +36,13 @@ const PostForm = () => {
         </Button>
         <Button
           variant="outline"
-          className="flex items-center gap-2 text-gray-600 hover:text-red-500"
+          className="md:flex hidden items-center gap-2 text-gray-600 hover:text-red-500"
         >
           <FiVideo /> <span>Video</span>
         </Button>
         <Button
           variant="outline"
-          className="flex items-center gap-2 text-gray-600 hover:text-purple-500"
+          className="md:flex hidden items-center gap-2 text-gray-600 hover:text-purple-500"
         >
           <FiLink /> <span>Link</span>
         </Button>

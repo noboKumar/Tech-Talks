@@ -21,7 +21,7 @@ const PostFeed = async () => {
       {posts.map((post) => (
         <div className="p-5" key={post._id.toString()}>
           {/* author div */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 w-full">
             <Image
               src={
                 (post?.postBy_userPhoto && post?.postBy_userPhoto) ||
