@@ -3,13 +3,25 @@ import { FiCode, FiImage, FiLink, FiVideo } from "react-icons/fi";
 import { Button } from "./ui/button";
 import PostModal from "./PostModal";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 const PostForm = () => {
   const [open, setOpen] = useState<boolean>(false);
+  const { data: session } = useSession();
+  const user = session?.user;
+
   return (
     <div className="bg-card p-4 space-y-4 rounded-t-xl mb-5">
       {/* profile photo and text area */}
-      <div>
+      <div className="flex items-center gap-2">
+        <Image
+          className="mx-auto rounded-full z-10"
+          src={user?.image || ""}
+          width={40}
+          height={40}
+          alt="user photo"
+        />
         <PostModal
           open={open}
           setOpen={setOpen}
