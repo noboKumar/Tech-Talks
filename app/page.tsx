@@ -1,7 +1,7 @@
 import PostFeed from "@/components/PostFeed";
 import PostForm from "@/components/PostForm";
+import StorySection from "@/components/StorySection";
 import UserProfile from "@/components/UserProfile";
-// TODO: FIX Responsiveness Issue
 
 export default function Home() {
   return (
@@ -13,6 +13,9 @@ export default function Home() {
 
       {/* feed */}
       <div className="lg:col-span-2 border-2 rounded-xl">
+        <div className="p-2">
+          <StorySection />
+        </div>
         <div>
           <PostForm />
         </div>
