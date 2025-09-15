@@ -12,7 +12,7 @@ const PostForm = () => {
   const user = session?.user;
 
   return (
-    <div className="bg-card p-4 space-y-4 rounded-t-xl mb-5">
+    <div className="bg-card p-4 space-y-4 rounded-xl mb-5">
       {/* profile photo and text area */}
       <div className="flex items-center gap-2">
         {user ? (

@@ -16,7 +16,7 @@ export default function Home() {
         <div className="p-2">
           <StorySection />
         </div>
-        <div>
+        <div className="p-2">
           <PostForm />
         </div>
         <div className="bg-card min-h-screen rounded-xl">
