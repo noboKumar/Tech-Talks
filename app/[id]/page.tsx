@@ -3,8 +3,10 @@ import CommentInput from "@/components/CommentInput";
 import LikeButton from "@/components/LikeButton";
 import SaveButton from "@/components/SaveButton";
 import { Button } from "@/components/ui/button";
+import { authOptions } from "@/lib/auth";
 import { dataBase } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
+import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -20,6 +22,7 @@ type Comment = {
 
 const PostDetails = async ({ params }: { params: { id: string } }) => {
   const { id } = await params;
+  const session = await getServerSession(authOptions);
 
   const db = await dataBase();
   const postCollection = db.collection("post");
@@ -65,17 +68,25 @@ const PostDetails = async ({ params }: { params: { id: string } }) => {
         {/* action button */}
         <div className="flex justify-around my-3 border-t border-b py-2">
           {/* Like Button */}
-          <LikeButton postId={id} likes={post?.likes} />
+          <LikeButton postId={id} likes={post?.likes} isLoggedIn={!!session} />
 
           {/* Comment Button */}
-          <CommentButton comments={post?.comments} postId={id} />
+          <CommentButton
+            comments={post?.comments}
+            postId={id}
+            isLoggedIn={!!session}
+          />
 
           {/* Save Button */}
-          <SaveButton />
+          <SaveButton
+            postId={id}
+            savedBy={post?.savedBy}
+            isLoggedIn={!!session}
+          />
         </div>
 
         <div>
-          <CommentInput postId={id} />
+          <CommentInput postId={id} isLoggedIn={!!session} />
           <hr />
 
           <div className="space-y-5 py-5" id="comments">
